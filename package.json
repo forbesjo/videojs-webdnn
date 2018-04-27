@@ -1,0 +1,23 @@
+{
+  "name": "videojs-webdnn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/videojs-webdnn.js",
+  "scripts": {
+    "test": "",
+    "build": "rollup -c src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "video.js": "^7.0.0-rc.1",
+    "webdnn": "^1.2.3"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "devDependencies": {
+    "parcel-bundler": "^1.7.1",
+    "rollup": "^0.58.2"
+  }
+}

@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <link href="./node_modules/video.js/dist/video-js.css" rel="stylesheet">
+  </head>
+<body>
+
+  <video-js
+    id="input" class="vjs-default-skin"
+    height=200 width=480
+    crossorigin="anonymous"
+    controls>
+  </video-js>
+
+  <div>
+    <select id="sources" onchange="changeDropdown(this)">
+      <option value="https://vjs.zencdn.net/v/oceans.mp4">Disney Oceans MP4 loaded from zencdn.net</option>
+      <option value="https://s3.amazonaws.com/_bc_dml/example-content/bipbop-advanced/bipbop_16x9_variant.m3u8">Advanced BipBop - alternate audio, byte ranges</option>
+      <option value="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">Sintel - 2 Audio, 4 Text</option>
+      <option value="https://playertest.longtailvideo.com/adaptive/eleph-audio/playlist.m3u8">Elephants Dream - 3 Audio, 2 Text</option>
+      <option value="https://d2zihajmogu5jn.cloudfront.net/advanced-fmp4/master.m3u8">Advanced fMP4 BipBop - alternate audio, byte ranges, subtitles, captions</option>
+    </select>
+  </div>
+
+  <div>
+    <select id="model" onchange="changeModel(this)">
+      <option value="kandinsky">Kandinsky</option>
+      <option value="edtaonisl">Edtaonisl</option>
+    </select>
+  </div>
+
+  <label> Video URL:
+    <input id=url type=url value="https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8">
+  </label>
+  <button id="load" onclick="changeSource(this)">Load</button>
+  <div>
+    <img id="style" height=144 width=192 src="./models/kandinsky.jpg"></img>
+  </div>
+
+  <script src="https://unpkg.com/webdnn/dist/webdnn.js"></script>
+  <script src="./node_modules/video.js/dist/video.js"></script>
+  <script src="./dist/videojs-webdnn.js"></script>
+  <script>
+    const player = videojs('input');
+    player.style({
+      name: 'kandinsky',
+      path: './models/kandinsky'
+    });
+
+    player.src({
+      src: 'https://vjs.zencdn.net/v/oceans.mp4',
+      type: 'video/mp4'
+    });
+
+    const url = document.getElementById('url');
+    const changeSource = (event) => {
+      player.src(url.value);
+    };
+
+    const changeDropdown = ({value}) => {
+    url.value = value;
+    };
+
+    const changeModel = ({value}) => {
+      style.src = `./models/${value}.jpg`;
+      player.style.model({
+        name: value,
+        path: `./models/${value}`
+      });
+    };
+  </script>
+</body>
+</html>
